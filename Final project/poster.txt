@@ -1,0 +1,15 @@
+posters:
+shorten your text lines:  consider breaking your text into four columns.
+JUSTIFY THE RIGHT WAY:Left justifying text makes for an easier read.
+consider the font: University, suggests a font size of 85pt for the title, 36–44 for the headers, and 24–34 for the body text.suggests fonts like Helvetica or Gill Sans for the body and a serif for the titles.
+Conclusions: the conclusion are suggested to be placed at top of the rightmost column—or, start the body of the poster with it.
+colors: no reds on blues, or reds on yellows. Instead, use a background in a muted color—one that is closer to white on the color spectrum—for a more professional tone.
+Check for readability at 6 feet; judge your layout choices; make sure all columns are aligned; use black as the text color.
+Always title your graphs
+Highlight the peak, trough, or other comparison of interest with an arrow containing the value of that data point.
+Is useful to include a simple description of how you got the data you’re presenting near the graph
+The graphs should tell the whole story; “If you removed all the info besides the graphics, the poster should still be pretty good,” 
+Use graphs rather than tables; avoid cluttered figures;
+arrange experiments to tell a story, not in the order they were performed; 
+include enough data to defend your hypothesis; 
+keep about a 50/50 ratio of graphics to text.

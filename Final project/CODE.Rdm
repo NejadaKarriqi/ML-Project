@@ -1,0 +1,149 @@
+---
+title: "ML"
+author: "Nejada, Javier"
+date: "24/5/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#library(corrplot)
+library(ggplot2)
+```
+
+## Introduction
+
+### Objectives
+
+### Dataset description
+
+### Related works
+
+## Data exploration
+
+
+### Preprocessing
+The  preprocessing  is  an  essential  step  for  building  our models, since we are working with two datasets, we would do it for each one in the following sections.
+
+#### Red wine
+
+For the red wine dataset, we can see the  data  contains  1599  observations  (wine  samples)  and 12 attributes or variables related to the red wine where 11 attributes are numerical and 1 is integer which is the quality variable. 
+
+```{r read.redwine}
+red <- read.delim("winequality-white.csv", sep=";", header=TRUE)
+dim(red) #number of observations, number of variables
+str(red)
+```
+
+One important thing to consider is that quality are numbers from 1 to 10, since we want to predict the wine into two categories: bad and good wines, we need to merge this values into 0 and 1. To classify it, we are considering a threshold of quality equal or bigger than 6 as good wine.
+
+NOTE: ASK PROFESSOR FOR THRESHOLD.
+```{r read.makeCategoriesRed}
+red$good.wine<-ifelse(red$quality>6,1,0)
+summary(red)
+```
+
+#####  Assess Data Quality & Missing Value
+Now, we will proceed to check if our data contains missing values. As we can see, for the red wine it does not.
+
+```{r red.na}
+sum(is.na(red))
+```
+
+It  is  also  a  good  approach  to  see  how  data  is  correlated, in  order   to  check  relationships  we   are  going  to   use  a correlogram,  which  reveals  pairwise  correlations.  In the next plot, positive correlations are represented in blue and negative correlations in red color, since we are interested in predicting the quality, we are just going to concentrate on this variable.It  shows  that  quality  variable  is  somewhat  positively  correlated  with  alcohol  and  volatile  acidity  shows  a  negative correlation with  quality.  This  is  good  to  know since we can generate our model on the principal positively correlated variables.
+
+```{r red.correlation}
+corrplot(cor(red[,1:12]), method = "number")
+```
+
+Next, we will check the distribution of the red wine quality, as we can see that the majority of the observations have a score between 5 and 6. We can conclude that most of the observations are bad wine since they are falling under our threshold.
+
+```{r red.dist}
+ggplot(red,aes(x=quality))+geom_bar(stat = "count",position = "dodge")+
+  scale_x_continuous(breaks = seq(3,8,1))+
+  ggtitle("Distribution of Red Wine Quality Ratings")+
+  theme_classic()
+```
+
+#### White wine
+
+For the white wine dataset, we can see the  data  contains  4898  observations  (wine  samples)  and 12 attributes or variables related to the white wine where 11 attributes are numerical and 1 is integer.
+
+```{r read.whitewine}
+white = read.delim("winequality-white.csv", sep=";", header=TRUE);
+dim(white) #number of observations, number of variables
+#str(white)
+```
+
+One important thing to consider is that quality are numbers from 1 to 10, since we want to predict the wine into two categories: bad and good wines, we need to merge this values into 0 and 1. To classify it, we are considering a threshold of quality equal or bigger than 6 as good wine.
+
+```{r read.makeCategoriesWhite}
+white$good.wine<-ifelse(white$quality>6,1,0)
+summary(white)
+```
+
+#####  Assess Data Quality & Missing Value
+Now, we will proceed to check if our data contains missing values. As we can see, for the white wine it does not.
+
+```{r white.na}
+sum(is.na(white))
+```
+
+It  is  also  a  good  approach  to  see  how  data  is  correlated, in  order   to  check  relationships  we   are  going  to   use  a correlogram,  which  reveals  pairwise  correlations.  In the next plot, positive correlations are represented in blue and negative correlations in red color, since we are interested in predicting the quality, we are just going to concentrate on this variable.It  shows  that  quality  variable  is  somewhat  positively  correlated  with  alcohol  and  density  shows  a  negative correlation with  quality.  This  is  good  to  know since we can generate our model on the principal positively correlated variables.
+
+```{r white.correlation}
+corrplot(cor(white), method = "number")
+```
+
+Next, we will check the distribution of the white wine quality, as we can see again that the majority of the observation have a score between 5 and 6. We can conclude that most of the observations are bad wine since they are falling under our threshold.
+```{r white.dist}
+ggplot(white,aes(x=quality))+geom_bar(stat = "count",position = "dodge")+
+  scale_x_continuous(breaks = seq(3,8,1))+
+  ggtitle("Distribution of Red Wine Quality Ratings")+
+  theme_classic()
+```
+###Outliers just an idea
+
+```{r white.outlier}
+MD <- mahalanobis(white, colMeans(white), cov(white))
+white$MD <- round(MD, 2)
+max(MD)
+mean(MD)
+summary(MD)
+white$outlierStatus <- FALSE
+white$outlierStatus[white$MD>100] <- TRUE
+completeData$Countries <- data$X
+
+###########Outliers with Cooks distance
+mod1 <- lm(Score ~ ., data=white)
+cooksd1 <- cooks.distance(mod1)
+plot(cooksd1, pch=".", cex=2, main="score")  # plot cook's distance
+abline(h = 4*mean(cooksd1, na.rm=T), col="red")  # add cutoff line
+text(x=1:length(cooksd1)+1, y=cooksd1, labels=ifelse(cooksd1>4*mean(cooksd1, na.rm=T),names(cooksd1),""), col="red")  # add labels
+```
+### Feature selection/extraction
+
+### Clustering
+
+### Visualization
+
+## Validation protocol
+
+### Modeling methods considering
+
+### Reasoning the choice
+
+## Results
+
+for each method
+
+### Comparison of results
+
+## Final model
+
+### Estimated generalized error
+
+## Conclusion
+
+## Extensions and limitations
+
